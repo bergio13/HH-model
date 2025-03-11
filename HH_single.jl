@@ -156,7 +156,20 @@ function HH_single(; stimulus_current=20.0, stimulus_duration=0.5, stimulus_star
                 stimulus_start + stimulus_duration, stimulus_start, stimulus_start],
             [-100, -100, -90, -90, -100],
             fill=true, fillalpha=0.5, lw=0, color=:red, label="")
-        display(plt)
+        plt2 = plot(time_vector, m_vector, label="m", xlabel="Time (ms)", ylabel="Gating Variable",
+            legend=:topright, xlims=(0, simulation_duration), ylims=(0, 1))
+        plot!(time_vector, h_vector, label="h", xlabel="Time (ms)", ylabel="Gating Variable",
+            legend=:topright, xlims=(0, simulation_duration), ylims=(0, 1))
+        plot!(time_vector, n_vector, label="n", xlabel="Time (ms)", ylabel="Gating Variable",
+            legend=:topright, xlims=(0, simulation_duration), ylims=(0, 1))
+
+
+        combined_plot = plot(plt, plt2, layout=(1, 2), size=(1000, 400), margin=10Plots.mm)
+        display(combined_plot)
+        #savefig("images/hh_single.png")
+
+
+
     end
 
     return time_vector, voltage_vector, m_vector, h_vector, n_vector

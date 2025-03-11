@@ -3,7 +3,23 @@ using Printf
 using Plots
 
 ### ------------- DEFINE FUNCTIONS FOR ALPHAS AND BETAS -------------
+"""
+    alphaM(v::Float64, kTemp::Float64) -> Float64
+    betaM(v::Float64, kTemp::Float64) -> Float64
+    alphaH(v::Float64, kTemp::Float64) -> Float64
+    betaH(v::Float64, kTemp::Float64) -> Float64
+    alphaN(v::Float64, kTemp::Float64) -> Float64
+    betaN(v::Float64, kTemp::Float64) -> Float64
 
+Compute the alpha and beta values for the gating variables of the Hodgkin-Huxley model.
+
+# Arguments
+- `v::Float64`: Membrane voltage (mV).
+- `kTemp::Float64`: Temperature correction factor.
+
+# Returns
+- `Float64`: Alpha or beta value for the gating variable.
+"""
 @inline function alphaM(v::Float64, kTemp::Float64)::Float64
     kTemp * (0.1 * (v + 40)) / (1 - exp(-(v + 40) / 10) + eps())
 end
@@ -28,6 +44,7 @@ end
     kTemp * 0.125 * exp(-(v + 65) / 80)
 end
 
+### ------------- DEFINE MAIN FUNCTION FOR HH MODEL -------------
 
 """
     HH_multi(; I=-5, nComp=201, rhoA=100, cellX=0, plotV=true)

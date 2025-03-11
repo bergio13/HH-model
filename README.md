@@ -17,7 +17,7 @@ The script includes two implementations of the HH model: one for a single compar
 
 ### Single Compartment
 
-![Hodgkin-Huxley Model Simulation (Single Compartment)](https://github.com/bergio13/hh_model/blob/main/images/plot.png?raw=true)
+![Hodgkin-Huxley Model Simulation (Single Compartment)](https://github.com/bergio13/hh_model/blob/main/images/hh_single.png?raw=true)
 
 ### Multi Compartment
 

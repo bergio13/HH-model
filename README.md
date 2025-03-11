@@ -22,3 +22,7 @@ The script includes two implementations of the HH model: one for a single compar
 ### Multi Compartment
 
 ![Hodgkin-Huxley Model Simulation (Multi Compartment)](https://github.com/bergio13/hh_model/blob/main/images/multi_plots.png?raw=true)
+
+## Credits
+
+The code is a julia implementation inspired and derived from the Python code provided by Professor Paul Werginz at TU Wien, Austria for the course "Computational Methods in Neural Engineering" (363.002).

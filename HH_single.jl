@@ -109,15 +109,7 @@ end
 Simulates the Hodgkin-Huxley single-compartment model of a neuron.
 
 # Arguments
-- `stimulus_current::Float64=20.0`: Stimulus current (μA/cm²).
-- `stimulus_duration::Float64=0.5`: Duration of the stimulus (ms).
-- `stimulus_start::Float64=1.0`: Time at which the stimulus starts (ms).
-- `time_step::Float64=0.025`: Time step for numerical inetgration (ms).
-- `simulation_duration::Float64=10.0`: Total duration of the simulation (ms).
-- `params.::Float64=6.3`: params. of the system (°C).
-- `membrane_capacitance::Float64=1.0`: Membrane capacitance (μF/cm²).
-- `solver::String="FE"`: ODE solver type, `"FE"` for Forward Euler, `"BE"` for Backward Euler.
-- `plot_voltage::Bool=false`: If `true`, plots the membrane voltage trace.
+- `params::HHParameters`: Parameters of the model.
 
 # Returns
 A tuple containing:

@@ -46,10 +46,12 @@ end
 
 ### ------------- DEFINE MAIN FUNCTION FOR HH MODEL -------------
 
-"""
-    HH_multi(; I=-5, nComp=201, rhoA=100, cellX=0, plotV=true)
 
-Simulates the Hodgkin-Huxley multi-compartment model of a neuron.
+
+"""
+    HHMultiParameters(I::Float64=-5, nComp::Int=201, rhoA::Float64=100, cellX::Float64=0, plotV::Bool=true)
+
+Parameters for the Hodgkin-Huxley multi-compartment model.
 
 # Arguments
 - `I::Float64=-5`: Stimulus current (μA/cm²).
@@ -57,6 +59,31 @@ Simulates the Hodgkin-Huxley multi-compartment model of a neuron.
 - `rhoA::Float64=100`: Axial resistivity (Ωcm).
 - `cellX::Float64=0`: X-shift of the cell relative to the electrode (at 0/0) (μm).
 - `plotV::Bool=true`: Whether to plot the voltage propagation.
+"""
+mutable struct HHMultiParameters
+    I::Float64
+    nComp::Int
+    rhoA::Float64
+    cellX::Float64
+    plotV::Bool
+end
+
+
+"""
+    HH_multi(params::HHMultiParameters) -> Tuple{
+        vMat::Array{Float64,2},
+        mMat::Array{Float64,2},
+        hMat::Array{Float64,2},
+        nMat::Array{Float64,2},
+        iNaMat::Array{Float64,2},
+        iKMat::Array{Float64,2},
+        iLMat::Array{Float64,2}
+    }
+
+Simulates the Hodgkin-Huxley multi-compartment model of a neuron.
+
+# Arguments
+- `params::HHMultiParameters`: Parameters for the model.
 
 # Returns
 - `vMat::Array{Float64,2}`: Matrix of membrane voltages for each compartment over time.
@@ -68,7 +95,9 @@ Simulates the Hodgkin-Huxley multi-compartment model of a neuron.
 - `iLMat::Array{Float64,2}`: Matrix of leak currents for each compartment over time.
 
 """
-function HH_multi(; I=-5, nComp=201, rhoA=100, cellX=0, plotV=true)
+function HH_multi(params::HHMultiParameters)
+
+    I, nComp, rhoA, cellX, plotV = params.I, params.nComp, params.rhoA, params.cellX, params.plotV
 
     # Electrode and spatial parameters
     rhoE = 300  # Extracellular resistivity, in Ohm*cm, for 'point and 'disk' only
@@ -89,7 +118,7 @@ function HH_multi(; I=-5, nComp=201, rhoA=100, cellX=0, plotV=true)
     temp = 6.3  # Model temperature, in Celsius, original=6.3
 
     # Hodgkin & Huxley parameters
-    vInit = -65  # Membrane voltage to initialize the simulation, in mV
+    vInit = -65.0  # Membrane voltage to initialize the simulation, in mV
     gNa = 120    # Sodium channel maximum conductivity, in mS/cm2, original=120
     gK = 36      # Potassium channel maximum conductivity, in mS/cm2, original=36
     gL = 0.3     # Leak channel maximum conductivity, in mS/cm2, original=0.3
@@ -282,4 +311,5 @@ function HH_multi(; I=-5, nComp=201, rhoA=100, cellX=0, plotV=true)
 end
 
 # Run the model
-vMat, mMat, hMat, nMat, iNaMat, iKMat, iLMat = HH_multi(I=-5)
+params = HHMultiParameters(-5, 201, 100, 0, true)
+vMat, mMat, hMat, nMat, iNaMat, iKMat, iLMat = HH_multi(params)
